@@ -36,7 +36,7 @@ Don't forget to include the other control variables from last week:
 * `govtype_mod`: A dummy (=1) for surplus coalitions, in contrast with minimal-winning ones (=0).
 * `record_threshold`:The percentage of MPs needed to call for a recorded vote (ranging between 0 and 0.3).
 
-**Please specify model 6 from Tuttnauer (2018) and report the coefficient for party size. Round to two digits after the decimal.**
+**Please specify and run model 6 from Tuttnauer (2018) and report the constitutive term of party size as well as the interaction term of party size and government experience. Round to two digits after the decimal.**
 
 ```{r lm_1_sol, eval=FALSE, echo = FALSE}
 model <- lm(conflict_p ~ seatshare*ge + abs_lrdiff + govside + inst_power + 
@@ -51,8 +51,15 @@ model %>% tidy() %>% filter(term == "seatshare")
 ```
 
 ```{r lm_1_q, echo = FALSE}
-question_text("Enter the value of the coefficient for seat share:",
+question_text("Enter the value of the constitutive term of  seat share:",
   answer("1.92", correct = T),
+  allow_retry = T, incorrect = "Hint: Revisit the code from the lab-session. Make sure that you included all variables in the model."
+)
+```
+
+```{r lm_2_q, echo = FALSE}
+question_text("Enter the value of the interaction term of seat share and ge:",
+  answer("-3.21", correct = T),
   allow_retry = T, incorrect = "Hint: Revisit the code from the lab-session. Make sure that you included all variables in the model."
 )
 ```
@@ -128,8 +135,6 @@ question_text("Enter the value of the upper bound of the 95% confidence interval
 
 **So what do we learn from the marginal effect estimation?**
 
-*Note that more than one answer can be correct.*
-
 ```{r margeff_interpret, echo = FALSE}
 question("The marginal effect of seat share...",
   answer("is positive and statistically significant at the 95% confidence level when government experience is at its minimum.", correct = T),
@@ -145,9 +150,9 @@ question("The marginal effect of seat share...",
 
 Estimating and reporting marginal effects is very common but can become complex, in particular, when we start dealing with non-linear regression models in a few weeks. Therefore, it is often recommendable to calculate meaningful predicted values for quantities of interest. Most of the times (and also in this case), researchers report predictions for the mean response (expected value) and not for future events. It allows them to ignore fundamental model uncertainty which is not of central concern when interpreting regression results.
 
-**What is the predicted (expected) average opposition share (in percent) when party size it at its minimum in comparison to when party size is at its maximum if government experience is equal to one, holding everything else at the respective mean/median. Please also calculate the corresponding 95% confidence intervals. When submitting your results, please round them to two integer digits (e.g., 0.23, 4.5, 13, 60, 65)**
+**What is the predicted (expected) average opposition share (in percent) when party size is at its minimum in comparison to when party size is at its maximum if government experience is equal to one, holding everything else at the respective mean/median. Please also calculate the corresponding 95% confidence intervals. When submitting your results, please round them to two integer digits (e.g., 0.23, 4.5, 13, 60, 65)**
 
-*Hint: The `predict()` function may be very useful for this exercise. Recall that govtype_mod is a binary variable.*
+*Hint: The `predict()` function may be very useful for this exercise. Recall that govtype_mod and govside are binary variables when you specify a scenario of interest.*
 
 *You can re-run the regression model in the chunk below. Alternatively, the correct regression output is already stored in an object called `out_ia`.*
 
@@ -200,7 +205,7 @@ question_text("Enter the value of the predicted average opposition share  (in pe
   answer("67", correct = T),
   answer("67.42", correct = F, message = "Please round your results to two integer digits."),
   answer("67.4", correct = F, message = "Please round your results to two integer digits."),
-  allow_retry = T, incorrect = "Hint: Revisit the code from the lab-session, in particular, the predict() function."
+  allow_retry = T, incorrect = "Hint: Revisit the code from the lab-session, in particular, the predict() function. Have you set all binary variables to their median (and not the mean)?"
 )
 ```
 
@@ -231,12 +236,10 @@ question_text("Enter the value of the upper bound of the 95% confidence interval
 
 **So what do we learn from the predictions?**
 
-*Note that more than one answer can be correct.*
-
 ```{r predict_interpret, echo = FALSE}
 question("The predicted average value for votes against the government...",
-  answer("is unlikely to differ for opposition parties with maximum government experience conditional on their party size.", correct = T, message = "Due to the overlap of the confidence intervals, we have good reason to not exclude the possibility that there may be no difference in the two specified scenarios. However, note that this is not an explicit statistical test whether there is a difference."),
-  answer("is likely to differ for opposition parties with maximum government experience conditional on their party size.", correct = F, message = "Have a closer look ath the confidence intervals. What do you find?"),
+  answer("is unlikely to differ for opposition parties with maximum government experience conditional on their party size.", correct = T, message = "Due to the overlap of the confidence intervals, we have good reason to not exclude the possibility that there may be no difference in the expected value in the two specified scenarios. However, note that this is not an explicit statistical test whether there is a difference, but only a first (strong) indication."),
+  answer("is likely to differ for opposition parties with maximum government experience conditional on their party size.", correct = F, message = "Have a closer look at the confidence intervals. What do you find?"),
   random_answer_order = TRUE,
   allow_retry = T
 )
