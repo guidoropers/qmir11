@@ -72,7 +72,7 @@ Interpreting interaction effects can be tricky. As discussed in class, there are
 
 **What is the marginal effect of seat share when government experience is at its minimum in comparison to when government experience is at its maximum (as well as the corresponding 95% confidence interval for the marginal effect estimates)?**
 
-*Hint: You need the `margins()` function from the `margins` package this exercise. In order to inspect the output from the `margins()` function, the `summary()` function may be helpful.*
+*Hint: You need the `margins()` function from the `margins` package for this exercise. In order to inspect the output from the `margins()` function, the `summary()` function may be helpful.*
 
 *You can re-run the regression model in the chunk below. Alternatively, the correct regression output is already stored in an object called `out_ia`.*
 
