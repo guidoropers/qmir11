@@ -248,7 +248,7 @@ question("The predicted average value for votes against the government...",
 ## Submit
 
 ```{r context="server"}
-learnrhash::encoder_logic()
+learnrhash::encoder_logic(strip_output = TRUE)
 ```
 
 ```{r encode, echo=FALSE}
